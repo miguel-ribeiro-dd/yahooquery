@@ -1220,11 +1220,14 @@ class _YahooFinance(object):
             else:
                 data = json[response_field]["result"][0]
         except KeyError:
-            data = (
-                json[response_field]["result"][addl_key]
-                if addl_key
-                else json[response_field]["result"]
-            )
+            try:
+                data = (
+                    json[response_field]["result"][addl_key]
+                    if addl_key
+                    else json[response_field]["result"]
+                )
+            except:
+                data = json[response_field]["result"][0]
         except TypeError:
             data = json
         return data
